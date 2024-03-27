@@ -1,4 +1,4 @@
-package io.rapidz.training.view
+package io.rapidz.training.views
 
 import android.annotation.SuppressLint
 import android.content.Intent
