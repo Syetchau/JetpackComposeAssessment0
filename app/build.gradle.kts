@@ -89,6 +89,12 @@ dependencies {
 	val daggerVersion = "2.44"
 	implementation("com.google.dagger:hilt-android:$daggerVersion")
 	kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
+
+	// Room Database
+	val roomVersion = "2.6.1"
+	implementation("androidx.room:room-runtime:$roomVersion")
+	implementation("androidx.room:room-ktx:$roomVersion")
+	kapt("androidx.room:room-compiler:$roomVersion")
 }
 
 // Allow references to generated code
