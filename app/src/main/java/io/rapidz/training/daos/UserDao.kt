@@ -1,5 +1,6 @@
 package io.rapidz.training.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,6 +16,6 @@ interface UserDao {
     @Query("delete from user")
     suspend fun dropUserTable()
 
-    @Query("select exists (select 1 from user where username = :username)")
-    fun checkIfUserExists(username: String): Boolean
+    @Query("select password from user where username =:username")
+    fun getUserPassword(username: String): LiveData<String?>
 }

@@ -1,20 +1,22 @@
 package io.rapidz.training.repository
 
+import androidx.lifecycle.LiveData
 import io.rapidz.training.daos.UserDao
 import io.rapidz.training.models.User
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val userDao: UserDao) {
 
-    suspend fun insertUser(user: User) {
+    suspend fun insertUser(user: User, callback: () -> Unit) {
         userDao.insertUser(user)
+        callback.invoke()
     }
 
     suspend fun dropUserTable() {
         userDao.dropUserTable()
     }
 
-    fun checkIfUserExists(username: String): Boolean {
-        return userDao.checkIfUserExists(username)
+    fun getUserPassword(username: String): LiveData<String?> {
+        return userDao.getUserPassword(username)
     }
 }
