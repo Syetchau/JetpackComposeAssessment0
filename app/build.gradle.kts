@@ -86,7 +86,7 @@ dependencies {
 
 	// Dagger Hilt
 	// Not support KSP
-	val daggerVersion = "2.44"
+	val daggerVersion = "2.48"
 	implementation("com.google.dagger:hilt-android:$daggerVersion")
 	kapt("com.google.dagger:hilt-android-compiler:$daggerVersion")
 
