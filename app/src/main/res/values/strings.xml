@@ -1,5 +1,9 @@
 <resources >
 	<string name = "app_name" >Jetpack Compose Training - Assignment 0</string >
 	<string name = "hello_world" >Hello World!</string >
-    <string name = "title_activity_login" >LoginActivity</string >
+	<string name = "user.username">Username</string>
+	<string name = "user.password">Password</string>
+	<string name = "error.password.invalid">The password does not meet the requirement.</string>
+	<string name = "error.password.mismatch">Wrong password.</string>
+	<string name = "action.login">Login</string>
 </resources >
