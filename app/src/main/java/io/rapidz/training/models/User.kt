@@ -1,4 +1,4 @@
-package io.rapidz.training.model
+package io.rapidz.training.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
