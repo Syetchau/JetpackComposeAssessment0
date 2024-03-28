@@ -72,7 +72,7 @@ fun AppLogoWithText() {
         )
         Spacer(modifier = Modifier.height(SPACING_80))
         Text(
-            text = stringResource(id = R.string.hello_world),
+            text = stringResource(id = R.string.label_hello_world),
             color = Color.White,
             fontSize = FONT_SIZE_30
         )
