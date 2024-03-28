@@ -25,6 +25,7 @@
 
 		<activity android:name = "io.rapidz.training.views.LoginActivity"/>
 		<activity android:name = "io.rapidz.training.views.ListActivity"/>
+		<activity android:name = "io.rapidz.training.views.ImageActivity"/>
 
 	</application >
 
