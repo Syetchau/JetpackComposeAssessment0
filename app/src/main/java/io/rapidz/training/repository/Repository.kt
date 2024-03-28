@@ -12,10 +12,6 @@ class Repository @Inject constructor(private val userDao: UserDao) {
         callback.invoke()
     }
 
-    suspend fun dropUserTable() {
-        userDao.dropUserTable()
-    }
-
     fun getUserPassword(username: String): LiveData<String?> {
         return userDao.getUserPassword(username)
     }

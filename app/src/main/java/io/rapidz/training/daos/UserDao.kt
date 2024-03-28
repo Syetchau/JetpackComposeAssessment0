@@ -13,9 +13,6 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User)
 
-    @Query("delete from user")
-    suspend fun dropUserTable()
-
     @Query("select password from user where username =:username")
     fun getUserPassword(username: String): LiveData<String?>
 }
