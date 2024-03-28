@@ -84,9 +84,7 @@ class LoginActivity : ComponentActivity() {
                 value = username,
                 onValueChange = {
                     username = it
-                    if (username.isNotEmpty() && password.isNotEmpty()) {
-                        isBtnEnable = true
-                    }
+                    isBtnEnable = username.isNotEmpty() && password.isNotEmpty()
                 }
             )
             EditText(
@@ -104,9 +102,7 @@ class LoginActivity : ComponentActivity() {
                 },
                 onValueChange = { 
                     password = it
-                    if (username.isNotEmpty() && password.isNotEmpty()) {
-                        isBtnEnable = true
-                    }
+                    isBtnEnable = username.isNotEmpty() && password.isNotEmpty()
                 }
             )
             if (isShowingErrLbl) {
@@ -166,7 +162,15 @@ class LoginActivity : ComponentActivity() {
             } else {
                 // Not new user
                 // Check password
-                if (password == userPassword) onSuccessLogin() else onPasswordError(Error.PASSWORD_MISMATCHED)
+                if (password.length < 8) {
+                    onPasswordError(Error.PASSWORD_NOT_MET_REQUIREMENT)
+                    return@observe
+                }
+                if (password.equals(userPassword, ignoreCase = false)) {
+                    onSuccessLogin()
+                } else {
+                    onPasswordError(Error.PASSWORD_MISMATCHED)
+                }
             }
         }
     }
