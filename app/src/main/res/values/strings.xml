@@ -6,4 +6,5 @@
 	<string name = "error.password.invalid">The password does not meet the requirement.</string>
 	<string name = "error.password.mismatch">Wrong password.</string>
 	<string name = "action.login">Login</string>
+	<string name = "action.image">Image</string>
 </resources >
