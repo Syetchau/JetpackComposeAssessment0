@@ -8,7 +8,6 @@ object PreferenceManager {
     private const val PREFERENCES_KEY = "PREFERENCE_MANAGER"
 
     const val LAST_LOGIN_USERNAME = "LAST_LOGIN_USERNAME"
-    const val LAST_LOGIN_PASSWORD = "LAST_LOGIN_PASSWORD"
 
     lateinit var preferences: SharedPreferences
 
