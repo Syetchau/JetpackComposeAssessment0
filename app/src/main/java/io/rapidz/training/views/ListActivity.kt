@@ -51,6 +51,7 @@ import io.rapidz.training.theme.SPACING_32
 import io.rapidz.training.theme.SPACING_4
 import io.rapidz.training.theme.SPACING_8
 import io.rapidz.training.utils.UiUtils.goToNextActivity
+import java.util.Locale
 
 enum class Type {
     Random,
@@ -142,10 +143,18 @@ class ListActivity:  ComponentActivity() {
     private fun performSort(type: Type): List<String> {
         return when (type) {
             Type.Random -> dataList.shuffled()
-            Type.ASC -> dataList.sortedBy { if (it.toIntOrNull() != null) it.toInt() else Int.MAX_VALUE }
-            Type.DES -> dataList.sortedByDescending { if (it.toIntOrNull() != null) it.toInt() else Int.MIN_VALUE }
-            Type.NO -> dataList.filter { it.toIntOrNull() != null }.sorted()
-            Type.TXT -> dataList.filter { it.toIntOrNull() == null }.sorted()
+            Type.ASC ->  dataList
+                .sortedWith(compareBy<String> { it.toIntOrNull() ?: Int.MAX_VALUE }
+                .thenBy { it.lowercase(Locale.ROOT) })
+            Type.DES -> dataList
+                .sortedWith(compareByDescending<String> { it.toIntOrNull() ?: Int.MAX_VALUE }
+                .thenByDescending { it.lowercase(Locale.ROOT) })
+            Type.NO -> dataList
+                .filter { it.toIntOrNull() != null }
+                .sorted()
+            Type.TXT -> dataList
+                .filter { it.toIntOrNull() == null }
+                .sorted()
             else -> dataList
         }
     }
