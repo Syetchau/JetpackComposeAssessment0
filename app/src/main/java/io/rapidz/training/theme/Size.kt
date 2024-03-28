@@ -14,3 +14,6 @@ val SPACING_80 = 80.dp
 
 val FONT_SIZE_16 = 16.sp
 val FONT_SIZE_30 = 30.sp
+
+val FONT_WEIGHT_600 = 600
+val FONT_WEIGHT_700 = 700

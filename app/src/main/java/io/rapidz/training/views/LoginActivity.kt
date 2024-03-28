@@ -44,6 +44,8 @@ import io.rapidz.training.theme.Color_Hint_Text
 import io.rapidz.training.theme.Color_Login_Btn
 import io.rapidz.training.theme.Color_Login_Btn_Disable
 import io.rapidz.training.theme.FONT_SIZE_16
+import io.rapidz.training.theme.FONT_WEIGHT_600
+import io.rapidz.training.theme.FONT_WEIGHT_700
 import io.rapidz.training.theme.SPACING_20
 import io.rapidz.training.theme.SPACING_36
 import io.rapidz.training.theme.SPACING_50
@@ -58,6 +60,10 @@ enum class Error {
 
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
+
+    companion object {
+        private const val MIN_PASSWORD_LENGTH = 8
+    }
 
     private val viewModel: UserViewModel by viewModels()
 
@@ -158,11 +164,15 @@ class LoginActivity : ComponentActivity() {
         viewModel.getUserPassword(username).observe(this@LoginActivity) { userPassword ->
             if (userPassword.isNullOrEmpty()) {
                 // New user here
-                if (password.length > 8) onCreateNewUser() else onPasswordError(Error.PASSWORD_NOT_MET_REQUIREMENT)
+                if (password.length > MIN_PASSWORD_LENGTH) {
+                    onCreateNewUser()
+                } else {
+                    onPasswordError(Error.PASSWORD_NOT_MET_REQUIREMENT)
+                }
             } else {
                 // Not new user
                 // Check password
-                if (password.length < 8) {
+                if (password.length < MIN_PASSWORD_LENGTH) {
                     onPasswordError(Error.PASSWORD_NOT_MET_REQUIREMENT)
                     return@observe
                 }
@@ -234,7 +244,7 @@ fun ErrorLabel(text: String) {
         text = text,
         fontSize = FONT_SIZE_16,
         color = Color.Red,
-        fontWeight = FontWeight(700),
+        fontWeight = FontWeight(FONT_WEIGHT_700),
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = SPACING_36, end = SPACING_36)
@@ -262,7 +272,7 @@ fun LoginButton(text: String, isEnabled: Boolean = false, onClickEvent: () -> Un
         content = {
             Text(
                 text = text,
-                fontWeight = FontWeight(600),
+                fontWeight = FontWeight(FONT_WEIGHT_600),
                 fontSize = FONT_SIZE_16,
                 color = Color.White,
             )
