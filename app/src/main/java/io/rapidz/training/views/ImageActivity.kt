@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -77,11 +78,11 @@ class ImageActivity: ComponentActivity() {
             modifier = Modifier.padding(vertical = SPACING_32)
         ) {
             TextLabel(label = getString(R.string.label_hello_world_2))
-            ConstraintLayout(
-                modifier = Modifier.fillMaxSize().padding(horizontal = SPACING_16)
-            ) {
+            ConstraintLayout(modifier = Modifier.fillMaxSize().padding(horizontal = SPACING_16)) {
+
                 val (row, box) = createRefs()
-                Row(modifier = Modifier.constrainAs(row) {
+
+                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.constrainAs(row) {
                     top.linkTo(parent.top)
                     bottom.linkTo(box.top)
                     start.linkTo(parent.start)
