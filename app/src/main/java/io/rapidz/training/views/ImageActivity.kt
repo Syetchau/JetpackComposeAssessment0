@@ -8,6 +8,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,41 +46,9 @@ class ImageActivity: ComponentActivity() {
 
     @Composable
     fun ImageScreen() {
-        val constraint = ConstraintSet {
-            val helloWorldTxt = createRefFor("helloWorldTxt")
-            val worldImage = createRefFor("worldImage")
-            val star = createRefFor("star")
-
-            constrain(helloWorldTxt) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-
-            constrain(worldImage) {
-                top.linkTo(helloWorldTxt.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-
-            constrain(star) {
-                top.linkTo(worldImage.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-            }
-
-            createVerticalChain(helloWorldTxt, worldImage, star, chainStyle = ChainStyle.Packed)
-        }
-
-
-        ConstraintLayout(
-            constraintSet = constraint,
-            modifier = Modifier.padding(vertical = SPACING_32)
-        ) {
+        Column(modifier = Modifier.padding(vertical = SPACING_32)) {
             TextLabel(label = getString(R.string.label_hello_world_2))
             ConstraintLayout(modifier = Modifier.fillMaxSize().padding(horizontal = SPACING_16)) {
-
                 val (row, box) = createRefs()
 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.constrainAs(row) {
