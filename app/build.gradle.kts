@@ -62,6 +62,8 @@ dependencies {
 
 	// Compose
 	implementation("androidx.activity:activity-compose:1.8.2")
+	implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
 
 	// Load local drawable
 	implementation("com.google.accompanist:accompanist-drawablepainter:0.35.0-alpha")

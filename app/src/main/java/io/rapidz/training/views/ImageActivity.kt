@@ -8,18 +8,19 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.constraintlayout.compose.ChainStyle
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
 import dagger.hilt.android.AndroidEntryPoint
 import io.rapidz.jetpackcomposetraining_assignment0.R
 import io.rapidz.training.theme.Color_Hello_World_Txt
@@ -43,41 +44,75 @@ class ImageActivity: ComponentActivity() {
 
     @Composable
     fun ImageScreen() {
-        Column(
-            modifier = Modifier.padding(vertical = SPACING_32),
-            verticalArrangement = Arrangement.SpaceEvenly,
+        val constraint = ConstraintSet {
+            val helloWorldTxt = createRefFor("helloWorldTxt")
+            val worldImage = createRefFor("worldImage")
+            val star = createRefFor("star")
+
+            constrain(helloWorldTxt) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+
+            constrain(worldImage) {
+                top.linkTo(helloWorldTxt.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+
+            constrain(star) {
+                top.linkTo(worldImage.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }
+
+            createVerticalChain(helloWorldTxt, worldImage, star, chainStyle = ChainStyle.Packed)
+        }
+
+
+        ConstraintLayout(
+            constraintSet = constraint,
+            modifier = Modifier.padding(vertical = SPACING_32)
         ) {
             TextLabel(label = getString(R.string.label_hello_world_2))
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = SPACING_16),
-                verticalAlignment = Alignment.CenterVertically
+            ConstraintLayout(
+                modifier = Modifier.fillMaxSize().padding(horizontal = SPACING_16)
             ) {
-                Drawable(
-                    modifier = Modifier.weight(1f),
-                    drawable = AppCompatResources.getDrawable(this@ImageActivity, R.drawable.hello_world)!!
-                )
-                Drawable(
-                    modifier = Modifier.size(EARTH_LOGO_SIZE),
-                    drawable = AppCompatResources.getDrawable(this@ImageActivity, R.drawable.ic_world)!!
-                )
+                val (row, box) = createRefs()
+                Row(modifier = Modifier.constrainAs(row) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(box.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                }) {
+                    Drawable(
+                        modifier = Modifier.weight(1f),
+                        drawable = AppCompatResources.getDrawable(this@ImageActivity, R.drawable.hello_world)!!
+                    )
+                    Drawable(
+                        modifier = Modifier.size(EARTH_LOGO_SIZE),
+                        drawable = AppCompatResources.getDrawable(this@ImageActivity, R.drawable.ic_world)!!
+                    )
+                }
+                Box(modifier = Modifier.constrainAs(box) {
+                    top.linkTo(row.bottom)
+                    bottom.linkTo(parent.bottom)
+                    end.linkTo(parent.end)
+                }) {
+                    Drawable(
+                        modifier = Modifier
+                            .size(HEIGHT_50)
+                            .background(Color.LightGray),
+                        drawable = AppCompatResources.getDrawable(this@ImageActivity, android.R.drawable.btn_star_big_on)!!,
+                        isClickable = true,
+                        onClickEvent = {
+                            Toast.makeText(this@ImageActivity, R.string.label_thanks_for_rating, Toast.LENGTH_LONG).show()
+                        }
+                    )
+                }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Box(
-                modifier = Modifier.padding(horizontal = SPACING_16).align(Alignment.End)
-            ) {
-                Drawable(
-                    modifier = Modifier.size(HEIGHT_50).background(Color.LightGray),
-                    drawable = AppCompatResources.getDrawable(this@ImageActivity, android.R.drawable.btn_star_big_on)!!,
-                    isClickable = true,
-                    onClickEvent = {
-                        Toast.makeText(this@ImageActivity, R.string.label_thanks_for_rating, Toast.LENGTH_LONG).show()
-                    }
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
